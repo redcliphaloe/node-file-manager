@@ -1,5 +1,6 @@
 import * as base from './base.js';
 import * as nwd from './nwd.js';
+import * as files from './files.js';
 import * as hash from './hash.js';
 import * as zip from './zip.js';
 
@@ -19,6 +20,9 @@ process.stdin.on('data', (chunk) => {
       break;
     case 'ls':
       nwd.ls();
+      break;
+    case 'cat':
+      files.cat(cmd[1]);
       break;
     case 'hash':
       hash.getHash(cmd[1]);
