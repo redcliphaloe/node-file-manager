@@ -19,7 +19,7 @@ export const ls = async () => {
     }
     base.printCurrentDir();
   } catch (err) {
-    process.stdout.write(`${err}\n`);
+    process.stdout.write('Operation failed\n');
     base.printCurrentDir();
   }
 }
