@@ -12,7 +12,7 @@ export const getUsername = () => {
 export const enter = () => {
   process.stdout.write(`Welcome to the File Manager, ${getUsername()}!\n`);
   process.chdir(os.homedir());
-  printCurrentDir();  
+  printCurrentDir();
 }
 
 export const exit = () => {
