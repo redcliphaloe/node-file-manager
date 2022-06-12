@@ -1,6 +1,7 @@
 import * as base from './base.js';
 import * as nwd from './nwd.js';
 import * as hash from './hash.js';
+import * as zip from './zip.js';
 
 process.on('SIGINT', base.exit);
 
@@ -21,6 +22,12 @@ process.stdin.on('data', (chunk) => {
       break;
     case 'hash':
       hash.getHash(cmd[1]);
+      break;
+    case 'compress':
+      zip.compress(cmd[1], cmd[2]);
+      break;
+    case 'decompress':
+      zip.decompress(cmd[1], cmd[2]);
       break;
     default:
       base.printInvalid();
