@@ -32,7 +32,7 @@ export const compress = async (pathFile, pathDest) => {
     process.stdout.write('Operation failed\n');
     base.printCurrentDir();
   }
-};
+}
 
 export const decompress = async (pathFile, pathDest) => {
   try {
@@ -63,4 +63,4 @@ export const decompress = async (pathFile, pathDest) => {
     process.stdout.write('Operation failed\n');
     base.printCurrentDir();
   }
-};
+}

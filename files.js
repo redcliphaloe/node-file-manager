@@ -1,5 +1,6 @@
 import * as base from './base.js';
 import fs from 'fs';
+import path from 'path';
 
 export const cat = async (path) => {
   try {
@@ -20,4 +21,34 @@ export const cat = async (path) => {
     process.stdout.write('Operation failed\n');
     base.printCurrentDir();
   }
-};
+}
+
+export const rm = async (path) => {
+  try {
+    await fs.promises.unlink(path);
+    base.printCurrentDir();
+  } catch (err) {
+    process.stdout.write('Operation failed\n');
+    base.printCurrentDir();
+  }
+}
+
+export const add = async (name) => {
+  try {
+    fs.createWriteStream(path.join(process.cwd(), name), 'utf8');
+    base.printCurrentDir();
+  } catch (err) {
+    process.stdout.write('Operation failed\n');
+    base.printCurrentDir();
+  }
+}
+
+export const rn = async (filePath, newName) => {
+  try {
+    await fs.promises.rename(filePath, path.join(path.dirname(filePath), newName));
+    base.printCurrentDir();
+  } catch (err) {
+    process.stdout.write('Operation failed\n');
+    base.printCurrentDir();
+  }
+}

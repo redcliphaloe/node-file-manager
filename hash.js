@@ -23,4 +23,4 @@ export const getHash = async (path) => {
     process.stdout.write('Operation failed\n');
     base.printCurrentDir();
   }
-};
+}

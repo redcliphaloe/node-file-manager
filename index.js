@@ -25,6 +25,15 @@ process.stdin.on('data', (chunk) => {
     case 'cat':
       files.cat(cmd[1]);
       break;
+    case 'add':
+      files.add(cmd[1]);
+      break;
+    case 'rn':
+      files.rn(cmd[1], cmd[2]);
+      break;
+    case 'rm':
+      files.rm(cmd[1]);
+      break;
     case 'os':
       osi.getInfo(cmd[1]);
       break;
