@@ -31,6 +31,9 @@ process.stdin.on('data', (chunk) => {
     case 'rn':
       files.rn(cmd[1], cmd[2]);
       break;
+    case 'cp':
+      files.cp(cmd[1], cmd[2]);
+      break;
     case 'rm':
       files.rm(cmd[1]);
       break;

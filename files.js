@@ -52,3 +52,13 @@ export const rn = async (filePath, newName) => {
     base.printCurrentDir();
   }
 }
+
+export const cp = async (filePath, newDir) => {
+  try {
+    await fs.promises.cp(filePath, path.join(newDir, path.basename(filePath)));
+    base.printCurrentDir();
+  } catch (err) {
+    process.stdout.write('Operation failed\n');
+    base.printCurrentDir();
+  }
+}
