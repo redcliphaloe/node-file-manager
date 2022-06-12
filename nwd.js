@@ -15,7 +15,7 @@ export const ls = async () => {
   try {
     const files = await fs.readdir(process.cwd());
     for (const file of files) {
-    process.stdout.write(`${file}\n`);
+      process.stdout.write(`${file}\n`);
     }
     base.printCurrentDir();
   } catch (err) {
