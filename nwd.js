@@ -24,9 +24,11 @@ export const parseCmdToArr = (str) => {
   let tmpStr = str.trim();
   // get command
   const indexOfFirstSpace = tmpStr.indexOf(space);
-  if (indexOfFirstSpace !== 0) {
+  if (indexOfFirstSpace !== -1) {
     arr.push(tmpStr.slice(0, indexOfFirstSpace));
     tmpStr = tmpStr.slice(indexOfFirstSpace + 1);
+  } else {
+    return [tmpStr];
   }
   // get parametrs
   if (tmpStr.includes(doubleQuote)) {
