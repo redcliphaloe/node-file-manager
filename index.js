@@ -3,6 +3,7 @@ import * as nwd from './nwd.js';
 import * as files from './files.js';
 import * as osi from './osi.js';
 import * as hash from './hash.js';
+import * as zip from './zip.js';
 
 process.on('SIGINT', base.exit);
 process.stdin.on('data', async (chunk) => {
@@ -44,6 +45,12 @@ process.stdin.on('data', async (chunk) => {
     case 'hash':
       hash.getHash(cmd[1]);
       return;
+    case 'compress':
+      await zip.compress(cmd[1], cmd[2]);
+      break;
+    case 'decompress':
+      await zip.decompress(cmd[1], cmd[2]);
+      break;
     default:
       base.printInvalid();
       break;
