@@ -14,6 +14,7 @@ export const getHash = (path) => {
       const hash = crypto.createHash('sha256');
       hash.update(text);
       process.stdout.write(`${hash.digest('hex')}${base.EOL}`);
+      base.printCurrentDir();
     });
     rs.on('error', files.streamError);
   } catch (error) {
