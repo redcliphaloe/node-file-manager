@@ -2,7 +2,7 @@ import fs, {promises as fsp} from 'fs';
 import path from 'path';
 import * as base from './base.js';
 
-const streamError = (error) => {
+export const streamError = (error) => {
   process.stdout.write(`${error}${base.EOL}`);
   base.printError();
   base.printCurrentDir();

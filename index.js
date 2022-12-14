@@ -2,6 +2,7 @@ import * as base from './base.js';
 import * as nwd from './nwd.js';
 import * as files from './files.js';
 import * as osi from './osi.js';
+import * as hash from './hash.js';
 
 process.on('SIGINT', base.exit);
 process.stdin.on('data', async (chunk) => {
@@ -40,6 +41,9 @@ process.stdin.on('data', async (chunk) => {
     case 'os':
       osi.getInfo(cmd[1]);
       break;
+    case 'hash':
+      hash.getHash(cmd[1]);
+      return;
     default:
       base.printInvalid();
       break;
