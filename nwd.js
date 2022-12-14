@@ -18,13 +18,22 @@ export const cd = (path) => {
 };
 
 export const parseCmdToArr = (str) => {
+  const space = ' ';
   const doubleQuote = '\"';
   let arr = [];
-  if (str.includes(doubleQuote)) {
-    arr = str.trim().split(doubleQuote);
+  let tmpStr = str.trim();
+  // get command
+  const indexOfFirstSpace = tmpStr.indexOf(space);
+  if (indexOfFirstSpace !== 0) {
+    arr.push(tmpStr.slice(0, indexOfFirstSpace));
+    tmpStr = tmpStr.slice(indexOfFirstSpace + 1);
+  }
+  // get parametrs
+  if (tmpStr.includes(doubleQuote)) {
+    arr = [...arr, ...tmpStr.split(doubleQuote)];
     arr = arr.map(v => v.trim());
   } else {
-    arr = str.trim().split(' ');
+    arr = [...arr, ...tmpStr.split(space)];
   }
   arr = arr.filter(v => v !== '');
   return arr;
@@ -47,7 +56,7 @@ export const ls = async (path) => {
       }
     });
     console.table(dirs.concat(files));
-  } catch (err) {
+  } catch (error) {
     base.printError();
   }
 };
