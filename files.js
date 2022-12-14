@@ -3,8 +3,7 @@ import path from 'path';
 import * as base from './base.js';
 
 export const streamError = (error) => {
-  process.stdout.write(`${error}${base.EOL}`);
-  base.printError();
+  base.printError(error);
   base.printCurrentDir();
 };
 
@@ -21,8 +20,7 @@ export const cat = (path) => {
     });
     rs.on('error', streamError);
   } catch (error) {
-    base.printError();
-    base.printCurrentDir();
+    streamError(error);
   }
 };
 
@@ -36,8 +34,7 @@ export const add = (name) => {
     });
     ws.on('error', streamError);
   } catch (error) {
-    base.printError();
-    base.printCurrentDir();
+    streamError(error);
   }
 };
 
@@ -46,7 +43,7 @@ export const rn = async (filePath, newName) => {
     await fsp.rename(filePath, path.join(path.dirname(filePath), newName));
     process.stdout.write(`The file has been renamed${base.EOL}`);
   } catch (error) {
-    base.printError();
+    base.printError(error);
   }
 };
 
@@ -68,8 +65,7 @@ export const cp = (filePath, newDir) => {
     });
     rs.on('error', streamError);
   } catch (error) {
-    base.printError();
-    base.printCurrentDir();
+    streamError(error);
   }
 };
 
@@ -92,8 +88,7 @@ export const mv = (filePath, newDir) => {
     });
     rs.on('error', streamError);
   } catch (error) {
-    base.printError();
-    base.printCurrentDir();
+    streamError(error);
   }
 };
 
@@ -102,6 +97,6 @@ export const rm = async (path) => {
     await fsp.unlink(path);
     process.stdout.write(`The file has been deleted${base.EOL}`);
   } catch (err) {
-    base.printError();
+    base.printError(error);
   }
 }

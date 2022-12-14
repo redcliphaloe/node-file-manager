@@ -5,7 +5,7 @@ export const up = () => {
   try {
     process.chdir('..');
   } catch (error) {
-    base.printError();
+    base.printError(error);
   }
 };
 
@@ -13,7 +13,7 @@ export const cd = (path) => {
   try {
     process.chdir(path);
   } catch (error) {
-    base.printError();
+    base.printError(error);
   }
 };
 
@@ -59,6 +59,6 @@ export const ls = async (path) => {
     });
     console.table(dirs.concat(files));
   } catch (error) {
-    base.printError();
+    base.printError(error);
   }
 };

@@ -8,7 +8,7 @@ export const enter = () => {
   try {
     process.chdir(os.homedir());
   } catch (error) {
-    printError();
+    printError(error);
   } finally {
     printCurrentDir();
   }
@@ -36,6 +36,7 @@ export const printInvalid = () => {
   process.stdout.write(`Invalid input${EOL}`);
 };
 
-export const printError = () => {
+export const printError = (error) => {
+  process.stdout.write(`${error}${EOL}`);
   process.stdout.write(`${OPERATION_ERROR_TEXT}${EOL}`);
 };

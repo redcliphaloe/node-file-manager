@@ -29,6 +29,6 @@ export const getInfo = (prm) => {
     }
     process.stdout.write(`${res}${base.EOL}`);
   } catch (error) {
-    base.printError();
+    base.printError(error);
   }
 };
