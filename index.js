@@ -1,6 +1,7 @@
 import * as base from './base.js';
 import * as nwd from './nwd.js';
 import * as files from './files.js';
+import * as osi from './osi.js';
 
 process.on('SIGINT', base.exit);
 process.stdin.on('data', async (chunk) => {
@@ -35,6 +36,9 @@ process.stdin.on('data', async (chunk) => {
       return;
     case 'rm':
       await files.rm(cmd[1]);
+      break;
+    case 'os':
+      osi.getInfo(cmd[1]);
       break;
     default:
       base.printInvalid();
