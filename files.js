@@ -96,7 +96,7 @@ export const rm = async (path) => {
   try {
     await fsp.unlink(path);
     process.stdout.write(`The file has been deleted${base.EOL}`);
-  } catch (err) {
+  } catch (error) {
     base.printError(error);
   }
-}
+};
