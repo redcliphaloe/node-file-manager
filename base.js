@@ -1,6 +1,6 @@
 import os from 'os';
 
-const EOL = os.EOL;
+export const EOL = os.EOL;
 const OPERATION_ERROR_TEXT = 'Operation failed';
 
 export const enter = () => {
