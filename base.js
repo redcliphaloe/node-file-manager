@@ -24,7 +24,7 @@ const getUsername = () => {
 };
 
 export const exit = () => {
-  process.stdout.write(`Thank you for using File Manager, ${getUsername()}, goodbye!`);
+  process.stdout.write(`Thank you for using File Manager, ${getUsername()}, goodbye!${EOL}`);
   process.exit();
 };
 
