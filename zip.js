@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs, {promises as fsp} from 'fs';
 import path from 'path';
 import zlib from 'zlib';
 import {pipeline} from 'stream/promises';
@@ -8,6 +8,7 @@ const DOT_BR = '.br';
 
 export const compress = async (pathFile, pathDest) => {
   try {
+    await fsp.access(pathFile, fs.constants.R_OK);
     const rs = fs.createReadStream(pathFile, {encoding: 'utf-8'});
     const brotli = zlib.createBrotliCompress();
     if (!pathDest) {
@@ -23,6 +24,7 @@ export const compress = async (pathFile, pathDest) => {
 
 export const decompress = async (pathFile, pathDest) => {
   try {
+    await fsp.access(pathFile, fs.constants.R_OK);
     const rs = fs.createReadStream(pathFile);
     const brotli = zlib.createBrotliDecompress();
     if (!pathDest) {
