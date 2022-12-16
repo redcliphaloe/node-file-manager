@@ -18,6 +18,6 @@ export const getHash = (path) => {
     });
     rs.on('error', files.streamError);
   } catch (error) {
-    base.printError(error);
+    files.streamError(error);
   }
 };
