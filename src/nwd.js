@@ -43,8 +43,8 @@ export const parseCmdToArr = (str) => {
 
 export const ls = async (path) => {
   try {
-    const dirs = [];
-    const files = [];
+    let dirs = [];
+    let files = [];
     let dirPath = process.cwd();
     if (path) {
       dirPath = path;
@@ -52,11 +52,13 @@ export const ls = async (path) => {
     const items = await fsp.readdir(dirPath, {withFileTypes: true});
     items.forEach(item => {
       if (item.isFile()) {
-        files.push({'Name': item.name, 'Type': 'file'});
+        files.push({Name: item.name, Type: 'file'});
       } else if (item.isDirectory()) {
-        dirs.push({'Name': item.name, 'Type': 'directory'});
+        dirs.push({Name: item.name, Type: 'directory'});
       }
     });
+    dirs = dirs.sort((a, b) => a.Name.localeCompare(b.Name, 'en', {numeric: true}));
+    files = files.sort((a, b) => a.Name.localeCompare(b.Name, 'en', {numeric: true}));
     console.table(dirs.concat(files));
   } catch (error) {
     base.printError(error);
