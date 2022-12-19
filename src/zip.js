@@ -8,14 +8,17 @@ const DOT_BR = '.br';
 
 export const compress = async (pathFile, pathDest) => {
   try {
-    await fsp.access(pathFile, fs.constants.R_OK);
     const rs = fs.createReadStream(pathFile, {encoding: 'utf-8'});
     const brotli = zlib.createBrotliCompress();
     if (!pathDest) {
       pathDest = path.dirname(pathFile);
     }
-    const ws = fs.createWriteStream(path.join(pathDest, `${path.basename(pathFile)}${DOT_BR}`));
-    await pipeline(rs, brotli, ws);
+    const pathNewFile = path.join(pathDest, `${path.basename(pathFile)}${DOT_BR}`);
+    const ws = fs.createWriteStream(pathNewFile);
+    await pipeline(rs, brotli, ws).catch(async (error) => {
+      await fsp.unlink(pathNewFile);
+      throw new Error(error);
+    });
     process.stdout.write(`The file has been compressed${base.EOL}`);
   } catch (error) {
     base.printError(error);
@@ -24,7 +27,6 @@ export const compress = async (pathFile, pathDest) => {
 
 export const decompress = async (pathFile, pathDest) => {
   try {
-    await fsp.access(pathFile, fs.constants.R_OK);
     const rs = fs.createReadStream(pathFile);
     const brotli = zlib.createBrotliDecompress();
     if (!pathDest) {
@@ -34,8 +36,12 @@ export const decompress = async (pathFile, pathDest) => {
     if (newFileName.endsWith(DOT_BR)) {
       newFileName = newFileName.slice(0, -DOT_BR.length);
     }
-    const ws = fs.createWriteStream(path.join(pathDest, newFileName));
-    await pipeline(rs, brotli, ws);
+    const pathNewFile = path.join(pathDest, newFileName);
+    const ws = fs.createWriteStream(pathNewFile);
+    await pipeline(rs, brotli, ws).catch(async (error) => {
+      await fsp.unlink(pathNewFile);
+      throw new Error(error);
+    });
     process.stdout.write(`The file has been decompressed${base.EOL}`);
   } catch (error) {
     base.printError(error);
