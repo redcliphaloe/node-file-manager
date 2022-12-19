@@ -17,7 +17,7 @@ export const compress = async (pathFile, pathDest) => {
     const ws = fs.createWriteStream(pathNewFile);
     await pipeline(rs, brotli, ws).catch(async (error) => {
       await fsp.unlink(pathNewFile);
-      throw new Error(error);
+      throw new Error(error.message);
     });
     process.stdout.write(`The file has been compressed${base.EOL}`);
   } catch (error) {
@@ -40,7 +40,7 @@ export const decompress = async (pathFile, pathDest) => {
     const ws = fs.createWriteStream(pathNewFile);
     await pipeline(rs, brotli, ws).catch(async (error) => {
       await fsp.unlink(pathNewFile);
-      throw new Error(error);
+      throw new Error(error.message);
     });
     process.stdout.write(`The file has been decompressed${base.EOL}`);
   } catch (error) {
