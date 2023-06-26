@@ -10,12 +10,11 @@ export const streamError = (error) => {
 export const cat = (path) => {
   try {
     const rs = fs.createReadStream(path, {encoding: 'utf-8'});
-    let text = '';
     rs.on('data', (chunk) => {
-      text += chunk;
+      process.stdout.write(chunk);
     });
     rs.on('end', () => {
-      process.stdout.write(`${text}${base.EOL}`);
+      process.stdout.write(`${base.EOL}`);
       base.printCurrentDir();
     });
     rs.on('error', streamError);
@@ -49,14 +48,13 @@ export const rn = async (filePath, newName) => {
 
 export const cp = (filePath, newDir) => {
   try {
-    const rs = fs.createReadStream(filePath, {encoding: 'utf-8'});
-    let text = '';
+    const rs = fs.createReadStream(filePath);
+    const ws = fs.createWriteStream(path.join(newDir, path.basename(filePath)));
     rs.on('data', (chunk) => {
-      text += chunk;
+      ws.write(chunk);
     });
     rs.on('end', () => {
-      const ws = fs.createWriteStream(path.join(newDir, path.basename(filePath)));
-      ws.end(text);
+      ws.end();
       ws.on('finish', () => {
         process.stdout.write(`The file has been copied${base.EOL}`);
         base.printCurrentDir();
@@ -71,14 +69,13 @@ export const cp = (filePath, newDir) => {
 
 export const mv = (filePath, newDir) => {
   try {
-    const rs = fs.createReadStream(filePath, {encoding: 'utf-8'});
-    let text = '';
+    const rs = fs.createReadStream(filePath);
+    const ws = fs.createWriteStream(path.join(newDir, path.basename(filePath)));
     rs.on('data', (chunk) => {
-      text += chunk;
+      ws.write(chunk);
     });
     rs.on('end', () => {
-      const ws = fs.createWriteStream(path.join(newDir, path.basename(filePath)));
-      ws.end(text);
+      ws.end();
       ws.on('finish', async () => {
         await fsp.unlink(filePath);
         process.stdout.write(`The file has been moved${base.EOL}`);
